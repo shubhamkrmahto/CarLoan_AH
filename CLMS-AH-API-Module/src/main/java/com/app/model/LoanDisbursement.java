@@ -29,7 +29,7 @@ public class LoanDisbursement {
 	private Long accountNumber;
 	private String IFSCCode;
 	private String accountType;
-	private Double transferAmount;
+	private Double transferAmount; 
 	private String paymentStatus;
 	private LocalDate amountPaidDate;
 
