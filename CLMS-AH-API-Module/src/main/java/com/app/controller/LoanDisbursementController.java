@@ -21,9 +21,9 @@ public class LoanDisbursementController {
 	@Autowired
 	RestTemplate rt;
 	
-	@PostMapping("/loandisbursement")
+	@PostMapping("/loandisbursement/{id}")
 	public String loanDisbursementStatus(@PathVariable("id") Integer id, @RequestBody LoanDisbursement loandisbursement) {
-		String url ="http://localhost:3306/getSanction"+id;
+		String url ="http://localhost:6000/getSanction/"+id;
 		SanctionLetter sanction = rt.getForObject(url, SanctionLetter.class);
 		loanDisbursementService.saveLoanDisbursement(sanction,loandisbursement);
 		
