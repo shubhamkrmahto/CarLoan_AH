@@ -29,14 +29,8 @@ public class LoanDisbursementController {
 	RestTemplate rt;
 	
 	@PostMapping("/loandisbursement/{id}")
-<<<<<<< HEAD
-	public String loanDisbursementStatus(@PathVariable("id") Integer id, @RequestBody LoanDisbursement loandisbursement) {
-		String url ="http://localhost:6000/getSanction/"+id;
-		SanctionLetter sanction = rt.getForObject(url, SanctionLetter.class);
-		loanDisbursementService.saveLoanDisbursement(sanction,loandisbursement);
-=======
+
 	public ResponseEntity<String> loanDisbursementStatus(@PathVariable("id") Integer id) {
->>>>>>> branch 'master' of https://github.com/shubhamkrmahto/CarLoan_AH.git
 		
 		String url ="http://localhost:6000/CM/getSanction/"+id;
 		
