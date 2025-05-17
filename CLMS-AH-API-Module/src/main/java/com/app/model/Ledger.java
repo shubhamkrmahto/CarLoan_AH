@@ -2,8 +2,12 @@ package com.app.model;
 
 import java.time.LocalDate;
 
+import com.app.enums.LoanEMIStatus;
+
 import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,6 +24,7 @@ public class Ledger {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer ledgerId;
+	private Integer monthlyid;
 	private LocalDate ledgerCreatedDate;
 	private Double totalLoanAmount;
 	private Double payableAmountWithInterest;
@@ -30,8 +35,12 @@ public class Ledger {
 	private LocalDate nextEmiDateStart;
 	private LocalDate nextEmiDateEnd;
 	private Integer defaulterCount;
-	private String previousEMIStatus;
-	private String currentMonthEMIStatus;
+	
+	@Enumerated(EnumType.STRING)
+	private LoanEMIStatus previousEMIStatus;
+	@Enumerated(EnumType.STRING)
+	private LoanEMIStatus currentMonthEMIStatus;
+	
 	private LocalDate loanEndDate;
 	private String loanStatus;
 	
