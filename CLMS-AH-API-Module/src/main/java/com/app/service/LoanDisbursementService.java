@@ -9,6 +9,8 @@ import com.app.model.SanctionLetter;
 public interface LoanDisbursementService {
 	
 	public LoanDisbursement getById(Integer id);
+	
+	public List<LoanDisbursement> getAllLoanDisbursement();
 
 	public String updateBankDetails(Integer id, LoanDisbursement ld);
 	
@@ -16,6 +18,6 @@ public interface LoanDisbursementService {
 
 	public String saveLoanDisbursement(SanctionLetter sanction);
 	
-	public List<Ledger> generateLedger(Integer id);
+	public String payEMI(Integer ldId,Integer month);
 
 }
