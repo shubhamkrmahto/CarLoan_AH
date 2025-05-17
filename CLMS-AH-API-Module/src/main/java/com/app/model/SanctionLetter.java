@@ -15,11 +15,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 public class SanctionLetter {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer sanctionLetterId;
 	private LocalDate sanctionDate;
 	private String applicantName;
@@ -36,10 +33,6 @@ public class SanctionLetter {
 	private String termsAndCondition;
 	private String status;
 	private Integer cibilScore;
-	
-	@Lob
-	@Column(length = 9000000)
-	private byte[] sanctionLetter;
 
 	
 }

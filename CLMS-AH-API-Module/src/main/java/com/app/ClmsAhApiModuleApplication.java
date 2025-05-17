@@ -12,9 +12,18 @@ public class ClmsAhApiModuleApplication {
 		SpringApplication.run(ClmsAhApiModuleApplication.class, args);
 	}
 	
+<<<<<<< HEAD
 	@Bean
 	public RestTemplate rt() {
 		RestTemplate rs = new RestTemplate();
+=======
+	
+	@Bean
+	public RestTemplate rt()
+	{
+		RestTemplate rs = new RestTemplate();
+		
+>>>>>>> branch 'master' of https://github.com/shubhamkrmahto/CarLoan_AH.git
 		return rs;
 	}
 
