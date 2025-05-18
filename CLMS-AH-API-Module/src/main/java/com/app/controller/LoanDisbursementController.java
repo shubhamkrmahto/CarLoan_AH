@@ -19,7 +19,7 @@ import com.app.model.SanctionLetter;
 import com.app.service.LoanDisbursementService;
 
 @CrossOrigin("*")
-@RequestMapping("/AH")
+@RequestMapping("/ah")
 @RestController
 public class LoanDisbursementController {
 
@@ -28,18 +28,19 @@ public class LoanDisbursementController {
 	@Autowired
 	RestTemplate rt;
 	
+	@GetMapping("/test")
+	public String testAPIGateway() {
+		return "Testing API Gateway";
+	}
+	
 	@PostMapping("/loandisbursement/{id}")
 
 	public ResponseEntity<String> loanDisbursementStatus(@PathVariable("id") Integer id) {
 		
 		String url ="http://localhost:6010/CM/getSanction/"+id;
-		
 		SanctionLetter sanction = rt.getForObject(url, SanctionLetter.class);
-		
 		System.out.println(sanction);
-		
 		String msg = loanDisbursementService.saveLoanDisbursement(sanction);
-		
 		return new ResponseEntity<String>(msg, HttpStatus.OK);
 	}
 	
