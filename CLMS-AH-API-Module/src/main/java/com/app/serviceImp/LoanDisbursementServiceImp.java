@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.app.enums.LoanEMIStatus;
@@ -18,30 +21,31 @@ import com.app.service.LoanDisbursementService;
 public class LoanDisbursementServiceImp implements LoanDisbursementService{
 	
 	@Autowired LoanDisbursementRepository loanDisbursementRepository;
+	
+	private static final Logger log = LoggerFactory.getLogger(LoanDisbursementServiceImp.class);
 
 	@Override
 	public LoanDisbursement getById(Integer id) {
-		// TODO Auto-generated method stub
 		
 		Optional<LoanDisbursement> byId = loanDisbursementRepository.findById(id);
 		
 		if(byId.isPresent()) {
-			
+			log.info("Get LoanDisbursement");
 			return byId.get();
 		}
 		return null;
 	}
 	
+
 	@Override
 	public List<LoanDisbursement> getAllLoanDisbursement() {
-		// TODO Auto-generated method stub	
 		
 		return loanDisbursementRepository.findAll();
 	}
 
+
 	@Override
 	public String updateBankDetails(Integer id, LoanDisbursement ld) {
-		// TODO Auto-generated method stub
 		
 		LoanDisbursement loanDisbursement = getById(id);
 	
@@ -53,15 +57,15 @@ public class LoanDisbursementServiceImp implements LoanDisbursementService{
 		loanDisbursement.setAccountType(ld.getAccountType());
 		
 		loanDisbursementRepository.save(loanDisbursement);
-		
+		log.info("Bank details has been updated Successfully.: "+id);
 		return "Bank details has been updated Successfully.";
 		}
+		log.warn("Details Not present for this id.");
 		return "Details Not present for this id.";
 	}
 
 	@Override
 	public String updateDownPayment(Integer id, LoanDisbursement ld) {
-		// TODO Auto-generated method stub
 		
 		LoanDisbursement loanDisbursement = getById(id);
 		
@@ -73,9 +77,10 @@ public class LoanDisbursementServiceImp implements LoanDisbursementService{
 			loanDisbursement.setAmountPayType(ld.getAmountPayType());
 			
 			loanDisbursementRepository.save(loanDisbursement);
-			
+			log.info("First Amount Has been paid Successfully : "+id);
 			return "First Amount Has been paid Successfully";
 			}
+			log.warn("ID not present. : "+id);
 			return "ID not present.";
 		
 	}
@@ -128,9 +133,10 @@ public class LoanDisbursementServiceImp implements LoanDisbursementService{
 		
 		
 		loanDisbursementRepository.save(loandisbursement);
-		
+		log.info("Loan Disbursement has been Saved");
 		return "Loan Disbursement has been created.";
 	}
+	
 
 	public String payEMI(Integer ldId, Integer month) {
 	    LoanDisbursement loanDisbursement = getById(ldId);
@@ -187,9 +193,5 @@ public class LoanDisbursementServiceImp implements LoanDisbursementService{
 
 	    return "EMI for month " + month + " marked as paid.";
 	}
-
-
-
-	
 
 }
