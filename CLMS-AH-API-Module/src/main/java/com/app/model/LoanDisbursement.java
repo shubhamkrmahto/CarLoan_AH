@@ -13,16 +13,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoanDisbursement {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer	agreementId;
-	private Integer loanNo;//from Sanction Letter Sanction ID from sanction
+	private Integer	loanDisbursementId;
+	private Integer sanctionId;//from Sanction Letter Sanction ID from sanction
 	private LocalDate agreementDate;//When the disbursement is generated from sanction
 	private String amountPayType;//How the amount is being paid
 	private Double totalAmount;//total amount to be paid from sanction

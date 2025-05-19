@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,13 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
-import com.app.model.Ledger;
 import com.app.model.LoanDisbursement;
 import com.app.model.SanctionLetter;
 import com.app.service.LoanDisbursementService;
 
-@RequestMapping("/AH")
+@CrossOrigin("*")
+@RequestMapping("/ah")
 @RestController
 public class LoanDisbursementController {
 
@@ -28,24 +28,35 @@ public class LoanDisbursementController {
 	@Autowired
 	RestTemplate rt;
 	
+	@GetMapping("/test")
+	public String testAPIGateway() {
+		return "Testing API Gateway";
+	}
+	
 	@PostMapping("/loandisbursement/{id}")
+
 	public ResponseEntity<String> loanDisbursementStatus(@PathVariable("id") Integer id) {
 		
-		String url ="http://localhost:6000/CM/getSanction/"+id;
-		
+		String url ="http://localhost:6010/CM/getSanction/"+id;
 		SanctionLetter sanction = rt.getForObject(url, SanctionLetter.class);
-		
 		System.out.println(sanction);
-		
 		String msg = loanDisbursementService.saveLoanDisbursement(sanction);
-		
 		return new ResponseEntity<String>(msg, HttpStatus.OK);
 	}
+	
+	
 	
 	@GetMapping("/getLoanDisbursement/{id}")
 	public ResponseEntity<LoanDisbursement> getLoanDisbursement(@PathVariable("id") Integer id)
 	{
 		return new ResponseEntity<LoanDisbursement>(loanDisbursementService.getById(id), HttpStatus.OK);
+	}
+	
+	@GetMapping("/getAllLoanDisbursement")
+	public ResponseEntity<List<LoanDisbursement>> getAllLoanDisbursement()
+	{
+		
+		return new ResponseEntity<List<LoanDisbursement>>(loanDisbursementService.getAllLoanDisbursement(), HttpStatus.OK);
 	}
 	
 	
@@ -64,11 +75,11 @@ public class LoanDisbursementController {
 		return new ResponseEntity<String>(loanDisbursementService.updateDownPayment(id, ld), HttpStatus.OK); 
 	}
 	
-	@PatchMapping("/generateLedger/{id}")
-	private ResponseEntity<List<Ledger>> generateLedger(@PathVariable("id") Integer id)
+	@PatchMapping("/payEMI/{ldid}/{month}")
+	private ResponseEntity<String> payDownPayment(@PathVariable("ldid") Integer ldid,@PathVariable("month") Integer month)
 	{
 		
-		return new ResponseEntity<List<Ledger>>(loanDisbursementService.generateLedger(id), HttpStatus.OK); 
+		return new ResponseEntity<String>(loanDisbursementService.payEMI(ldid, month), HttpStatus.OK); 
 	}
 	
 }

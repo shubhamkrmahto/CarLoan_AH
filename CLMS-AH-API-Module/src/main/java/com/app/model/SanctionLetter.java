@@ -1,13 +1,9 @@
 package com.app.model;
 
 import java.time.LocalDate;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import com.app.enums.SanctionLetterStatus;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,7 +27,8 @@ public class SanctionLetter {
 	private String modeOfPayment;
 	private String remarks;
 	private String termsAndCondition;
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private SanctionLetterStatus status;
 	private Integer cibilScore;
 
 	
