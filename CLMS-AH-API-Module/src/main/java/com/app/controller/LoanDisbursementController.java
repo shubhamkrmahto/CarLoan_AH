@@ -37,7 +37,7 @@ public class LoanDisbursementController {
 
 	public ResponseEntity<String> loanDisbursementStatus(@PathVariable("id") Integer id) {
 		
-		String url ="http://localhost:9090/cm/CM/getSanction/"+id;
+		String url ="http://localhost:9090/cm/cm/getSanction/"+id;
 		SanctionLetter sanction = rt.getForObject(url, SanctionLetter.class);
 		System.out.println(sanction);
 		String msg = loanDisbursementService.saveLoanDisbursement(sanction);
