@@ -18,7 +18,6 @@ import com.app.model.LoanDisbursement;
 import com.app.model.SanctionLetter;
 import com.app.service.LoanDisbursementService;
 
-@CrossOrigin("*")
 @RequestMapping("/ah")
 @RestController
 public class LoanDisbursementController {
@@ -34,7 +33,6 @@ public class LoanDisbursementController {
 	}
 	
 	@PostMapping("/loandisbursement/{id}")
-
 	public ResponseEntity<String> loanDisbursementStatus(@PathVariable("id") Integer id) {
 		
 		String url ="http://localhost:9090/cm/cm/getSanction/"+id;
